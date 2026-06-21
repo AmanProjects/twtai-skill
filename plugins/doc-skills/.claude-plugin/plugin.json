@@ -1,9 +1,9 @@
 {
-  "name": "doc-skills",
-  "version": "1.1.0",
+  "name": "Divin_doc-skills",
+  "version": "1.0.0",
   "description": "Documentation skills built in the TWT program: a style Reviewer, a release-notes Generator, a doc-coverage Analyzer skill, a doc-auditor agent, and two remote MCP servers (DeepWiki + Claude Code docs).",
   "author": {
-    "name": "Aman Talwar"
+    "name": "Divin Kotnise"
   },
   "keywords": ["documentation", "technical-writing", "review", "mcp"]
 }
