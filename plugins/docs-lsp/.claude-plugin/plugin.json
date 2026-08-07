@@ -1,6 +1,6 @@
 {
   "name": "docs-lsp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A language server for Markdown documentation. Gives Claude go-to-definition on links, backlinks on headings, and live broken-link diagnostics — treating headings as definitions and links as references.",
   "author": {
     "name": "Aman Talwar"

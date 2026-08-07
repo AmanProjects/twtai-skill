@@ -34,6 +34,22 @@ function uriToPath(uri) {
   return decodeURIComponent(uri.replace(/^file:\/\//, ""));
 }
 
+/**
+ * A path to show a human, relative to the workspace when that makes sense.
+ *
+ * `path.relative()` alone is wrong for files outside the workspace root: it
+ * happily produces things like `../../../../../tmp/notes/api.md`, which is
+ * accurate and useless. When the target escapes the workspace, show the
+ * absolute path instead.
+ */
+function displayPath(absolutePath) {
+  const relative = path.relative(workspaceRoot, absolutePath);
+  if (relative === "") return path.basename(absolutePath);
+  return relative.startsWith("..") || path.isAbsolute(relative)
+    ? absolutePath
+    : relative;
+}
+
 function pathToUri(filePath) {
   return "file://" + filePath.split("/").map(encodeURIComponent).join("/");
 }
@@ -378,7 +394,7 @@ function onInitialize(message) {
         hoverProvider: true,
         completionProvider: { triggerCharacters: ["(", "/", "#"] },
       },
-      serverInfo: { name: "docs-lsp", version: "1.0.0" },
+      serverInfo: { name: "docs-lsp", version: "1.0.1" },
     },
   });
 }
@@ -423,7 +439,7 @@ function publishDiagnostics(absolutePath) {
         range,
         severity: 1, // Error
         source: "docs-lsp",
-        message: `Broken link — no such file: ${path.relative(workspaceRoot, link.filePath)}`,
+        message: `Broken link — no such file: ${displayPath(link.filePath)}`,
       });
       continue;
     }
@@ -584,7 +600,7 @@ function onWorkspaceSymbol({ query }) {
       results.push({
         name: heading.text,
         kind: 15,
-        containerName: path.relative(workspaceRoot, absolutePath),
+        containerName: displayPath(absolutePath),
         location: {
           uri: pathToUri(absolutePath),
           range: lineRange(heading.line, heading.character, heading.text.length),
@@ -669,7 +685,7 @@ function hoverForLink(link) {
   if (!fs.existsSync(link.filePath)) return markdown(`⚠️ **Broken link** — file not found.`);
 
   const target = getDocument(link.filePath);
-  const relative = path.relative(workspaceRoot, link.filePath);
+  const relative = displayPath(link.filePath);
 
   if (!link.anchor) {
     return markdown([
