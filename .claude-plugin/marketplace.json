@@ -1,18 +1,22 @@
 {
   "name": "twtai",
   "owner": {
-    "name": "Tech Writer's Tribe",
-    "email": "twt@example.com"
+    "name": "Aman Talwar"
   },
   "metadata": {
-    "description": "Sample marketplace for the TWT AI program — documentation skills, an agent, and a bundled MCP server.",
-    "version": "1.1.0"
+    "description": "Reference marketplace for the AI-Powered Documentation Mastery program — documentation skills, an agent, hooks, MCP servers, and a Markdown language server.",
+    "version": "1.2.0"
   },
   "plugins": [
     {
       "name": "doc-skills",
       "source": "./plugins/doc-skills",
       "description": "Reviewer & Generator commands, a doc-coverage skill, a doc-auditor agent, and remote MCP servers."
+    },
+    {
+      "name": "docs-lsp",
+      "source": "./plugins/docs-lsp",
+      "description": "A Markdown documentation language server: go-to-definition on links, backlinks on headings, and live broken-link diagnostics. No binary to install."
     }
   ]
 }

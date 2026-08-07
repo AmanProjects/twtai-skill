@@ -23,6 +23,12 @@ twtai-skill/                          ← THIS REPO = a marketplace
 │       ├── hooks/                     ← HOOK      (event handler)
 │       │   └── hooks.json
 │       └── .mcp.json                  ← MCP SERVERS (remote, no setup)
+│   └── docs-lsp/                      ← a second PLUGIN
+│       ├── .claude-plugin/plugin.json ← plugin manifest
+│       ├── .lsp.json                  ← LSP SERVER (code intelligence)
+│       ├── server.js                  ← the language server itself
+│       ├── scan.js                    ← batch mode, CI-friendly
+│       └── commands/check-links.md    ← COMMAND (/docs-lsp:check-links)
 ├── examples/
 │   └── remote-mcp/                    ← connect to an online MCP server (no plugin)
 │       ├── .mcp.json
@@ -39,7 +45,8 @@ twtai-skill/                          ← THIS REPO = a marketplace
 
 ```
 /plugin marketplace add AmanProjects/twtai-skill   ← add the catalog
-/plugin install doc-skills@twtai                    ← install the plugin
+/plugin install doc-skills@twtai                    ← install a plugin
+/plugin install docs-lsp@twtai                      ← ...and the other one
 ```
 
 `twtai` is the marketplace `name` from `marketplace.json` (not the repo name). After installing, these are available:
@@ -51,6 +58,15 @@ twtai-skill/                          ← THIS REPO = a marketplace
 | Skill | `doc-coverage` — auto-invoked when you ask "what's missing in this doc?" |
 | Agent | `doc-auditor` — delegated for a full doc-set audit |
 | MCP (remote) | Ask: "Using DeepWiki, summarize the architecture of repo X" |
+
+From `docs-lsp`:
+
+| Component | How you use it |
+|-----------|----------------|
+| LSP server | Automatic. Claude gets go-to-definition on links, backlinks on headings, and live broken-link diagnostics while it edits Markdown. |
+| Command | `/docs-lsp:check-links ./docs` — the same engine in batch mode |
+
+> `docs-lsp` is the only plugin here that ships an **LSP server**, and the only one with no external dependency at all — the language server is plain Node, bundled in the plugin. See [`plugins/docs-lsp/README.md`](plugins/docs-lsp/README.md).
 
 ## The MCP servers are remote and safe
 
