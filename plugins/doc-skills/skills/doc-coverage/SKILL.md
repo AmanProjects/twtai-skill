@@ -16,6 +16,7 @@ Analyze the content at the file the user names for documentation coverage and ga
 - The correctness of code logic
 
 ## Output
+Generate a markdown file titled doc-coverage.md and include the following sections.
 [SECTION 1: Summary Statistics] — counts of sections present/missing, parameters fully vs. partially documented.
 [SECTION 2: Detailed Findings] — organized by category, with line references.
 [SECTION 3: Priority Recommendations] — ranked by impact on the reader.
